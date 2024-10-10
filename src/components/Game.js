@@ -8,7 +8,9 @@ function Game() {
 
   //Declaring a Winner
   useEffect(() => {
-    "Your code here";
+    const newWinner = calculateWinner(squares);
+    // console.log(`new winner is: ${newWinner}`);
+    setWinner(newWinner);
   }, [squares]);
 
   //function to check if a player has won.
@@ -39,13 +41,26 @@ function Game() {
   };
 
   //Handle player
+  console.log(`squares is: ${squares}`);
   const handleClick = (i) => {
-    "Your code here";
+    if (winner) {
+      return;
+    }
+    console.log(`this is index: ${i}`);
+    setXIsNext(xIsNext ? false : true);
+    let XO = xIsNext ? "X" : "O";
+
+    let newSquare = [...squares]; // không hiểu tại sao phần khai báo này lại cập nhật & lưu được state squares
+    console.log(`newsquare ${newSquare}`);
+    newSquare[i] = XO;
+    setSquares(newSquare);
   };
 
   //Restart game
   const handlRestart = () => {
-    "Your code here";
+    setSquares(Array(9).fill(null));
+    setXIsNext(true);
+    setWinner(null);
   };
 
   return (
@@ -53,9 +68,9 @@ function Game() {
       <h2 className="result">Winner is: {winner ? winner : "N/N"}</h2>
       <div className="game">
         <span className="player">Next player is: {xIsNext ? "X" : "O"}</span>
-        <Board squares={"Your code here"} handleClick={"Your code here"} />
+        <Board squares={squares} handleClick={handleClick} />
       </div>
-      <button onClick={"Your code here"} className="restart-btn">
+      <button onClick={handlRestart} className="restart-btn">
         Restart
       </button>
     </div>
